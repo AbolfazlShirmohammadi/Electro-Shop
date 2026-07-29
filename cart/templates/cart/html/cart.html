@@ -1,0 +1,143 @@
+{% extends "home/html/base.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock css %}
+
+{% block content %}
+
+<div class="cart-container">
+
+
+    
+    <div class="cart-items">
+
+        <h2>
+            سبد خرید شما
+        </h2>
+
+
+        {% for item in items %}
+
+        <div class="cart-card">
+
+
+            <img src="{{ item.product.image.url }}"
+                 alt="{{ item.product.title }}">
+
+
+            <div class="cart-info">
+
+                <h3>
+                    {{ item.product.title }}
+                </h3>
+
+
+                <p>
+                    برند:
+                    {{ item.product.brand.title }}
+                </p>
+
+
+                <p class="price">
+                    {{ item.product.price }} تومان
+                </p>
+
+
+                <div class="quantity">
+
+
+                    <a href="{% url 'increase_quantity' item.id %}">
+                        +
+                    </a>
+
+
+                    <span>
+                        {{ item.quantity }}
+                    </span>
+
+
+                    <a href="{% url 'decrease_quantity' item.id %}">
+                        -
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+            <a class="remove"
+               href="{% url 'remove_from_cart' item.id %}">
+                حذف
+            </a>
+
+
+        </div>
+
+
+        {% empty %}
+
+        <h3>
+            سبد خرید شما خالی است
+        </h3>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+
+    
+    <div class="cart-summary">
+
+
+        <h2>
+            خلاصه سفارش
+        </h2>
+
+
+        <div class="line">
+
+            <span>
+                تعداد کالا
+            </span>
+
+            <span>
+                {{ items.count }}
+            </span>
+
+        </div>
+
+
+        <div class="line total">
+
+            <span>
+                مبلغ کل
+            </span>
+
+            <span>
+                {{ total }} تومان
+            </span>
+
+        </div>
+
+
+
+        <a href="{% url 'create_order'  %}"
+           class="checkout">
+            ادامه ثبت سفارش
+        </a>
+
+
+    </div>
+
+
+
+</div>
+
+
+{% endblock %}

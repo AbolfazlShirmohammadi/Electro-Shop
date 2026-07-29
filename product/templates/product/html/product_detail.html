@@ -1,0 +1,67 @@
+{% extends "home/html/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="product-page">
+
+   
+    <div class="product-gallery">
+        <div class="main-image-container">
+            <img src="{{ detail.image.url }}" alt="{{ detail.title }}">
+        </div>
+
+        <div class="gallery-actions">
+            <a href="#" class="action-btn" title="افزودن به علاقه‌مندی">
+                🤍 <span>علاقه‌مندی</span>
+            </a>
+        </div>
+    </div>
+
+    
+    <div class="product-info">
+        {% if detail.brand %}
+            <a href="#" class="brand-link">{{ detail.brand.title }}</a>
+        {% endif %}
+
+        <h1>{{ detail.title }}</h1>
+
+        <div class="meta-info">
+            <span class="views-count">👁 {{ detail.view }} بازدید</span>
+        </div>
+
+        <hr class="divider">
+
+        <h3 class="section-title">توضیحات محصول</h3>
+        <p class="description">
+            {{ detail.description }}
+        </p>
+    </div>
+
+    
+    <div class="buy-box">
+        <div class="seller-info">
+            🏪 <span>فروشنده: ElectroShop</span>
+        </div>
+
+        <div class="stock-status">
+            ✅ موجود در انبار
+        </div>
+
+        <div class="price-container">
+            <span class="price-label">قیمت فروشنده</span>
+            <span class="price-value">{{ detail.price|intcomma }} <span class="currency">تومان</span></span>
+        </div>
+
+        <a href="{% url 'add_to_cart' detail.id %}" class="buy-btn">
+            افزودن به سبد خرید
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

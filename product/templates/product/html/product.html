@@ -1,0 +1,67 @@
+{% extends "home/html/base.html" %}
+{% load static %}
+{% load humanize %} <!-- ۱. بارگذاری کتابخانه humanize برای فرمت اعداد -->
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="all-categories-container">
+
+    {% for category in categories %}
+       
+        {% if category.products.all %}
+            <div class="category-section">
+                
+                
+                <h2 class="category-title">{{ category.name|default:category.title }}</h2>
+                
+                
+                <div class="products-container">
+                    {% for item in category.products.all %}
+                        <div class="product-card">
+                            
+                            <a href="{% url 'product_detail' item.id %}" class="card-link">
+                                <div class="product-image-wrapper">
+                                    {% if item.image %}
+                                        <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                                    {% endif %}
+                                </div>
+
+                                {% if item.brand %}
+                                    <p class="brand">{{ item.brand.title }}</p>
+                                {% endif %}
+
+                                <h3 class="product-title">{{ item.name }}</h3>
+
+                                <div class="price-box">
+                                    <!-- ۲. اعمال فیلتر intcomma روی قیمت -->
+                                    <span class="price-amount">{{ item.price|intcomma }}</span>
+                                    <span class="currency">تومان</span>
+                                </div>
+                            </a>
+
+                            <div class="card-actions">
+                                <a href="{% url 'add_to_cart' item.id %}" class="add-cart-btn">
+                                    افزودن به سبد خرید
+                                </a>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+            <hr class="category-divider">
+        {% endif %}
+    {% empty %}
+        <div class="empty-state">
+            <h2>هیچ دسته‌بندی یا محصولی یافت نشد.</h2>
+        </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

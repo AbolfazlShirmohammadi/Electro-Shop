@@ -1,0 +1,91 @@
+{% extends 'home/html/base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/add_product.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+        
+        <div class="profile-header">
+           
+            <h2>{% if is_edit %}ویرایش محصول{% else %}افزودن محصول جدید{% endif %}</h2>
+        </div>
+
+        <div class="profile-body">
+
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert-messages">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" action="" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+
+                
+                {% if form.non_field_errors %}
+                    <div class="alert-messages">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="form-grid">
+                    {% for field in form %}
+                        <div class="form-group {% if field.name == 'description' or field.name == 'image' or field.name == 'content' %}full-width{% endif %}">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            
+                            {% if field.errors %}
+                                <span class="field-error">
+                                    {{ field.errors.0 }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                
+                <div class="form-actions" style="display: flex; justify-content: space-between; align-items: center;">
+                    
+                    {% if is_edit %}
+                        
+                        <button type="button" class="btn-delete" onclick="confirmDelete()">
+                            🗑️ حذف محصول
+                        </button>
+                    {% else %}
+                        <div></div> <!-- جهت حفظ فاصله در حالت افزودن -->
+                    {% endif %}
+
+                    
+                    <button type="submit" class="btn-save">
+                        {% if is_edit %}ذخیره تغییرات{% else %}ثبت و انتشار محصول{% endif %}
+                    </button>
+                </div>
+            </form>
+
+            {% if is_edit %}
+                
+                <form id="delete-form" method="POST" action="{% url 'delete_product' product.id %}" style="display: none;">
+                    {% csrf_token %}
+                </form>
+
+                <script>
+                    function confirmDelete() {
+                        if (confirm('آیا از حذف این محصول اطمینان دارید؟ این عملیات قابل بازگشت نیست.')) {
+                            document.getElementById('delete-form').submit();
+                        }
+                    }
+                </script>
+            {% endif %}
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

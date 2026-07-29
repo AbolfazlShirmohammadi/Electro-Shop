@@ -1,0 +1,232 @@
+:root {
+  --digi-red: #ef394e;
+  --digi-red-hover: #d32f2f;
+  --text-main: #3f4064;
+  --text-muted: #81858b;
+  --bg-page: #f0f0f1;
+  --border-color: #e0e0e2;
+  --green-stock: #10b981;
+}
+
+body {
+  background-color: #ffffff;
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, sans-serif;
+  direction: rtl;
+  margin: 0;
+}
+
+/* کانتینر اصلی صفحه محصول */
+.product-page {
+  max-width: 1280px;
+  margin: 20px auto;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 340px 1fr 320px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* --- ۱. گالری تصویر (ستون راست) --- */
+.product-gallery {
+  position: sticky;
+  top: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-left: 1px solid var(--border-color);
+  padding-left: 20px;
+}
+
+.main-image-container {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.main-image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.gallery-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+
+.action-btn:hover {
+  color: var(--digi-red);
+}
+
+/* --- ۲. اطلاعات محصول (ستون وسط) --- */
+.product-info {
+  padding: 0 10px;
+}
+
+.brand-link {
+  color: #19bfd3;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.product-info h1 {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 16px 0;
+}
+
+.meta-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.views-count {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.divider {
+  height: 1px;
+  background-color: var(--border-color);
+  border: none;
+  margin: 20px 0;
+}
+
+.section-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 12px;
+}
+
+.description {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: #62666d;
+  white-space: pre-line;
+}
+
+/* --- ۳. باکس خرید (ستون چپ - خرید دیجی‌کالایی) --- */
+.buy-box {
+  background-color: #f7f8fa;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  position: sticky;
+  top: 90px;
+}
+
+.seller-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.stock-status {
+  color: var(--green-stock);
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.price-container {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.price-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 4px;
+  text-align: right;
+}
+
+.price-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.currency {
+  font-size: 0.8rem;
+  font-weight: 400;
+  margin-right: 4px;
+}
+
+.buy-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--digi-red);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 12px 0;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition: background-color 0.2s;
+}
+
+.buy-btn:hover {
+  background-color: var(--digi-red-hover);
+}
+
+/* واکنش‌گرایی در تبلت و موبایل */
+@media (max-width: 992px) {
+  .product-page {
+    grid-template-columns: 1fr;
+  }
+  
+  .product-gallery {
+    border-left: none;
+    border-bottom: 1px solid var(--border-color);
+    padding-left: 0;
+    padding-bottom: 20px;
+    position: static;
+  }
+
+  .buy-box {
+    position: static;
+  }
+}

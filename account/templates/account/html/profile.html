@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <title>حساب کاربری | اطلاعات شخصی</title>
+</head>
+<body>
+
+<div class="profile-layout">
+    
+    
+    <aside class="profile-sidebar">
+        <div class="user-summary">
+            <div class="avatar-wrapper">
+                {% if user.profile_picture %}
+                    <img src="{{ user.profile_picture.url }}" id="preview" alt="Profile">
+                {% else %}
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="preview" alt="Profile">
+                {% endif %}
+
+                <label for="id_profile_picture" class="edit-avatar-btn" title="تغییر عکس">
+                    <i class="fa-solid fa-pen"></i>
+                </label>
+            </div>
+            
+            <div class="user-info-text">
+                <p class="user-name">{{ user.get_full_name|default:user.username }}</p>
+                <p class="user-phone">{{ user.phone_number|default:"" }}</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="{% url 'my_orders' %}" class="menu-item">
+                <i class="fa-solid fa-bag-shopping"></i> سفارش‌ها
+            </a>
+            <a href="#" class="menu-item active">
+                <i class="fa-regular fa-user"></i> اطلاعات شخصی
+            </a>
+        </nav>
+    </aside>
+
+   
+    <main class="profile-content">
+        <div class="content-header">
+            <h1>ویرایش اطلاعات شخصی</h1>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            
+            <div class="hidden-input">
+                {{ form.profile_picture }}
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>نام</label>
+                    {{ form.first_name }}
+                </div>
+
+                <div class="form-group">
+                    <label>نام خانوادگی</label>
+                    {{ form.last_name }}
+                </div>
+
+                <div class="form-group">
+                    <label>پست الکترونیک (ایمیل)</label>
+                    {{ form.email }}
+                </div>
+
+                <div class="form-group">
+                    <label>شماره موبایل</label>
+                    {{ form.phone_number }}
+                </div>
+
+                <div class="form-group full-width">
+                    <label>آدرس تحویل سفارش</label>
+                    {{ form.address }}
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">
+                    ثبت اطلاعات
+                </button>
+            </div>
+        </form>
+    </main>
+
+</div>
+
+<script>
+ 
+  const input = document.getElementById("id_profile_picture");
+  const preview = document.getElementById("preview");
+
+  if (input) {
+    input.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

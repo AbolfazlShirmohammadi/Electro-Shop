@@ -1,0 +1,134 @@
+:root {
+  --digi-red: #ef394e;
+  --digi-red-hover: #d32f2f;
+  --text-main: #3f4064;
+  --text-muted: #81858b;
+  --bg-page: #ffffff;
+  --border-color: #e0e0e2;
+  --input-bg: #f0f0f1;
+}
+
+body.auth-page {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-page);
+  font-family: system-ui, -apple-system, sans-serif;
+  direction: rtl;
+}
+
+/* کارت اصلی ورود دیجی‌کالایی */
+.auth-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 32px 40px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-sizing: border-box;
+  text-align: right;
+}
+
+/* لوگوی بالای فرم */
+.auth-logo {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.auth-logo a {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #2c3e50;
+  text-decoration: none;
+}
+
+.auth-logo a span {
+  color: var(--digi-red);
+}
+
+.auth-container h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 8px 0;
+}
+
+.auth-container p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0 0 24px 0;
+  line-height: 1.5;
+}
+
+/* اینپوت‌ها */
+.auth-container input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  outline: none;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+}
+
+.auth-container input:focus {
+  border-color: #008eb2; /* رنگ فوکوس دیجی‌کالا */
+}
+
+/* دکمه ورود دیجی‌کالا */
+.btn-register-form {
+  width: 100%;
+  background-color: var(--digi-red);
+  color: #ffffff;
+  border: none;
+  padding: 12px 0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-register-form:hover {
+  background-color: var(--digi-red-hover);
+}
+
+/* فوتر و قوانین */
+.auth-footer {
+  margin-top: 24px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.auth-footer a {
+  color: #008eb2;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+.terms-text {
+  margin-top: 32px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* واکنش‌گرایی در موبایل */
+@media (max-width: 480px) {
+  .auth-container {
+    border: none;
+    padding: 20px;
+  }
+}

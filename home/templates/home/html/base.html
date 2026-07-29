@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+    {% block css %}
+    {% endblock %}
+    <title>Document</title>
+</head>
+<body>
+    {% include "home/html/header.html" %}
+    
+    {% block content %}
+    {% endblock %}
+    {% include "home/html/footer.html" %}
+    
+    <script src="{% static 'js/header.js' %}"></script>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('live-search-input');
+    const resultsBox = document.getElementById('search-results-dropdown');
+    let debounceTimer;
+
+    if (!searchInput || !resultsBox) {
+        console.error('عناصر searchInput یا resultsBox یافت نشدند.');
+        return;
+    }
+
+    searchInput.addEventListener('input', function () {
+        clearTimeout(debounceTimer);
+        const query = this.value.trim();
+
+        if (query.length === 0) {
+            resultsBox.innerHTML = '';
+            resultsBox.classList.add('hidden');
+            return;
+        }
+
+        debounceTimer = setTimeout(() => {
+            
+            fetch(`/product/live-search/?q=${encodeURIComponent(query)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`خطای شبکه: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    resultsBox.innerHTML = '';
+
+                    if (data.results && data.results.length > 0) {
+                        data.results.forEach(product => {
+                            const itemHTML = `
+                                <a href="${product.url}" class="search-item">
+                                    ${product.image ? `<img src="${product.image}" alt="${product.name}">` : ''}
+                                    <div class="search-item-info">
+                                        <span class="search-item-title">${product.name}</span>
+                                        <span class="search-item-price">${product.price} تومان</span>
+                                    </div>
+                                </a>
+                            `;
+                            resultsBox.insertAdjacentHTML('beforeend', itemHTML);
+                        });
+                        resultsBox.classList.remove('hidden');
+                    } else {
+                        resultsBox.innerHTML = '<div class="no-result">محصولی با این مشخصات یافت نشد.</div>';
+                        resultsBox.classList.remove('hidden');
+                    }
+                })
+                .catch(error => {
+                    console.error('خطا در دریافت نتایج سرچ:', error);
+                });
+        }, 300);
+    });
+
+    
+    document.addEventListener('click', function (e) {
+        if (!searchInput.contains(e.target) && !resultsBox.contains(e.target)) {
+            resultsBox.classList.add('hidden');
+        }
+    });
+});
+</script>
+    {% block js %}
+    
+    {% endblock %}
+</body>
+</html>

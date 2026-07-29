@@ -1,0 +1,88 @@
+{% extends 'home/html/base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="max-width: 1100px; margin: 30px auto; padding: 0 15px;">
+    <div style="background: #fff; border-radius: 8px; border: 1px solid #e0e0e0; padding: 20px;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px;">
+            <h2 style="font-size: 1.3rem; color: #333; margin: 0;">📦 محصولات من</h2>
+            <a href="{% url 'add_product' %}" class="add-product-btn" style="background: #ef4056; color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 0.9rem; font-weight: 500;">
+                ➕ افزودن محصول جدید
+            </a>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div style="padding: 10px 15px; background-color: #e8f5e9; color: #2e7d32; border-radius: 6px; margin-bottom: 15px; font-size: 0.85rem;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if products %}
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
+                {% for product in products %}
+                    <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; text-align: center; background: #fff; display: flex; flex-direction: column; justify-content: space-between;">
+                        
+                       
+                        <div>
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; height: 150px; object-fit: contain; border-radius: 6px;">
+                            {% else %}
+                                <div style="height: 150px; background: #f5f5f5; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #888; font-size: 0.85rem;">بدون تصویر</div>
+                            {% endif %}
+                            
+                            <h3 style="font-size: 0.95rem; margin: 12px 0 6px; color: #333; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="{{ product.name }}">{{ product.name }}</h3>
+                            <p style="font-size: 0.85rem; color: #ef4056; font-weight: bold; margin-bottom: 12px;">{{ product.price }} تومان</p>
+                        </div>
+                        
+                       
+                        <div style="border-top: 1px solid #f0f0f1; padding-top: 10px; margin-top: 8px;">
+                            <div style="display: flex; gap: 6px; justify-content: space-between; align-items: center;">
+                                
+                                
+                                <a href="{% url 'product_detail' product.id %}" style="font-size: 0.8rem; padding: 6px 10px; background: #f0f0f1; border-radius: 6px; text-decoration: none; color: #333; flex: 1; text-align: center;">
+                                    👁️ مشاهده
+                                </a>
+
+                                
+                                <a href="{% url 'edit_product' product.id %}" style="font-size: 0.8rem; padding: 6px 10px; background: #e3f2fd; color: #1976d2; border-radius: 6px; text-decoration: none; flex: 1; text-align: center; font-weight: 500;">
+                                    ✏️ ویرایش
+                                </a>
+
+                                
+                                <button type="button" onclick="confirmDeleteCard('{{ product.id }}', '{{ product.name|escapejs }}')" style="font-size: 0.8rem; padding: 6px 10px; background: #ffebee; color: #c62828; border: none; border-radius: 6px; cursor: pointer; flex: 1; font-weight: 500;">
+                                    🗑️ حذف
+                                </button>
+                                
+                            </div>
+
+                            
+                            <form id="delete-form-{{ product.id }}" method="POST" action="{% url 'delete_product' product.id %}" style="display: none;">
+                                {% csrf_token %}
+                            </form>
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div style="text-align: center; padding: 40px 0;">
+                <p style="color: #666; margin-bottom: 16px;">شما هنوز هیچ محصولی ثبت نکرده‌اید.</p>
+                <a href="{% url 'add_product' %}" style="background: #008eb2; color: #fff; padding: 8px 18px; border-radius: 6px; text-decoration: none; font-size: 0.9rem;">افزودن اولین محصول</a>
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+
+
+<script>
+    function confirmDeleteCard(productId, productName) {
+        if (confirm('آیا از حذف محصول "' + productName + '" اطمینان دارید؟')) {
+            document.getElementById('delete-form-' + productId).submit();
+        }
+    }
+</script>
+{% endblock %}

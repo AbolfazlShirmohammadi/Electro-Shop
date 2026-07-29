@@ -1,0 +1,124 @@
+{% extends "home/html/base.html" %}
+{% load static %}
+{% load humanize %} 
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="products-container">
+
+    {% for item in product_list %}
+        <div class="product-card">
+            
+
+            <a href="{% url 'product_detail' item.id %}" class="card-link">
+                
+                <div class="product-image-wrapper">
+                    <img src="{{ item.image.url }}" alt="{{ item.title|default:item.name }}">
+                </div>
+
+                {% if item.brand %}
+                    <p class="brand">{{ item.brand.title }}</p>
+                {% endif %}
+
+                <h3 class="product-title">{{ item.name }}</h3>
+
+                <div class="price-box">
+                    <!-- ۲. اضافه کردن فیلتر intcomma -->
+                    <span class="price-amount">{{ item.price|intcomma }}</span>
+                    <span class="currency">تومان</span>
+                </div>
+            </a>
+
+            
+            <div class="card-actions">
+             <button class="add-cart-btn ajax-add-to-cart" data-url="{% url 'add_to_cart' item.id %}">
+                 افزودن به سبد خرید
+             </button>
+                
+            </div>
+
+        </div>
+    {% empty %}
+        <div class="empty-state">
+            <h2>هیچ محصولی در این بخش یافت نشد.</h2>
+        </div>
+    {% endfor %}
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const buttons = document.querySelectorAll('.ajax-add-to-cart');
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+            const btn = this;
+            const targetUrl = btn.getAttribute('data-url'); 
+            const originalText = btn.innerText;
+
+            btn.innerText = 'در حال اضافه کردن...';
+            btn.disabled = true;
+
+            fetch(targetUrl, { 
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.status === 401 || response.status === 403) {
+                    alert('لطفا ابتدا وارد حساب کاربری خود شوید.');
+                    window.location.href = "{% url 'login' %}";
+                    throw new Error('Unauthenticated');
+                }
+                if (!response.ok) {
+                    throw new Error('Server Error');
+                }
+                return response.json();
+            })
+            .then(data => {
+                btn.innerText = '✓ به سبد اضافه شد';
+                btn.style.backgroundColor = '#4caf50';
+                
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.backgroundColor = '';
+                    btn.disabled = false;
+                }, 2000);
+            })
+            .catch(error => {
+                console.error(error);
+                if (error.message !== 'Unauthenticated') {
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                    alert('خطایی رخ داد. مطمئن شوید که لاگین هستید.');
+                }
+            });
+        });
+    });
+});
+</script>
+
+{% endblock %}

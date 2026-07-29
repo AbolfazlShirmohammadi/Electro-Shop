@@ -1,0 +1,182 @@
+
+.product-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px; padding: 50px 10%;
+}
+.product-card {
+    background: #fff; border-radius: 25px; padding: 20px;
+    transition: 0.5s; border: 1px solid #f0f0f0; text-align: center;
+}
+.product-card:hover { border-color: #007bff; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+.product-img { height: 200px; background: #eee; border-radius: 15px; margin-bottom: 15px; }
+.price { color: #007bff; font-weight: bold; margin: 10px 0; }
+.btn-buy { 
+    background: #333; color: #fff; border: none; padding: 10px 20px; 
+    border-radius: 10px; cursor: pointer; transition: 0.3s; width: 100%;
+}
+.btn-buy:hover { background: #007bff; }
+
+
+
+
+
+
+/* فوتر مدرن */
+.main-footer {
+  background-color: #ffffff;
+  border-top: 1px solid var(--border-color);
+  padding: 32px 5% 20px 5%;
+  color: var(--text-main);
+  margin-top: 60px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.footer-logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #2c3e50;
+}
+
+.footer-logo span {
+  color: var(--digi-red);
+}
+
+.scroll-to-top {
+  background: none;
+  border: 1px solid var(--border-color);
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.scroll-to-top:hover {
+  border-color: var(--text-muted);
+  color: var(--text-main);
+}
+
+.footer-features {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #f0f0f1;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.feature-icon {
+  font-size: 1.8rem;
+}
+
+.feature-title {
+  font-size: 0.75rem;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.footer-links-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 30px;
+  margin-bottom: 32px;
+}
+
+.footer-column h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  color: var(--text-main);
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column li {
+  margin-bottom: 12px;
+}
+
+.footer-column a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  transition: color 0.2s;
+}
+
+.footer-column a:hover {
+  color: var(--digi-red);
+}
+
+/* شبکه اجتماعی */
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+  width: fit-content;
+}
+
+.social-btn.github:hover {
+  background-color: #24292e;
+  color: #ffffff;
+}
+
+.social-btn.linkedin:hover {
+  background-color: #0077b5;
+  color: #ffffff;
+}
+
+.social-btn.telegram:hover {
+  background-color: #24a1de;
+  color: #ffffff;
+}
+
+.footer-bottom {
+  border-top: 1px solid #f0f0f1;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+
+

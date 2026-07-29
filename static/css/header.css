@@ -1,0 +1,363 @@
+:root {
+  --digi-red: #ef394e;
+  --text-main: #3f4064;
+  --text-muted: #81858b;
+  --bg-gray: #f0f0f1;
+  --border-color: #e0e0e2;
+}
+
+/* ساختار کلی هدر */
+.digi-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #ffffff;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
+  font-family: inherit;
+}
+
+/* ---- طبقه بالایی ---- */
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 5%;
+  gap: 20px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-grow: 1;
+}
+
+/* لوگو */
+.logo {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #2c3e50;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.logo span {
+  color: var(--digi-red);
+}
+
+/* باکس جستجو */
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-gray);
+  border-radius: 8px;
+  padding: 4px 12px;
+  width: 100%;
+  max-width: 550px;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-box:focus-within {
+  background-color: #ffffff;
+  box-shadow: inset 0 0 0 1px var(--border-color);
+}
+
+.search-box input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 8px 4px;
+  font-size: 0.85rem;
+  color: var(--text-main);
+  outline: none;
+  font-family: inherit;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.6;
+  font-size: 1.1rem;
+}
+
+/* بخش چپ هدر (ورود، سبد خرید، پروفایل) */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* دکمه ورود / ثبت‌نام به سبک دیجی‌کالا */
+.btn-auth {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border-color);
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-auth:hover {
+  border-color: var(--text-muted);
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background-color: var(--border-color);
+}
+
+/* دکمه سبد خرید */
+.cart-btn {
+  font-size: 1.2rem;
+  color: var(--text-main);
+  text-decoration: none;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+}
+
+/* پروفایل و منوی آبشاری کاربر */
+.dropdown {
+  position: relative;
+}
+
+.profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.profile-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border-color);
+}
+
+.dropdown-arrow {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  background-color: #ffffff;
+  min-width: 180px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  padding: 8px 0;
+  z-index: 100;
+}
+
+.dropdown-content.show {
+  display: block;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px 16px;
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: var(--bg-gray);
+}
+
+.dropdown-content hr {
+  margin: 6px 0;
+  border: none;
+  border-top: 1px solid var(--border-color);
+}
+
+.dropdown-content .logout-link {
+  color: var(--digi-red);
+}
+
+/* ---- طبقه پایینی (دسته‌بندی‌ها و لینک‌ها) ---- */
+.bottom-header {
+  display: flex;
+  align-items: center;
+  padding: 0 5%;
+  border-top: 1px solid #f2f2f2;
+  gap: 24px;
+}
+
+.category-dropdown {
+  position: relative;
+}
+
+.category-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 0.88rem;
+  transition: color 0.2s ease;
+}
+
+.category-title span {
+  font-size: 1.1rem;
+}
+
+.category-dropdown:hover .category-title {
+  color: var(--digi-red);
+}
+
+/* محتوای دراپ‌داون دسته‌بندی‌ها */
+.category-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #ffffff;
+  min-width: 220px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 8px 8px;
+  padding: 8px 0;
+  z-index: 90;
+}
+
+.category-dropdown:hover .category-content {
+  display: block;
+}
+
+.category-content a {
+  display: block;
+  padding: 10px 18px;
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.category-content a:hover {
+  background-color: var(--bg-gray);
+  color: var(--digi-red);
+  padding-right: 22px;
+}
+
+/* لینک‌های صفحات دیگر */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--text-main);
+}
+
+.add-product-btn {
+  color: #008eb2 !important;
+  font-weight: 700 !important;
+  background-color: #e6f7fa;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.add-product-btn:hover {
+  background-color: #008eb2;
+  color: #ffffff !important;
+}
+
+
+
+
+
+.search-box {
+    position: relative;
+}
+
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    max-height: 360px;
+    overflow-y: auto;
+    margin-top: 4px;
+    direction: rtl;
+}
+
+.search-dropdown.hidden {
+    display: none !important;
+}
+
+.search-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    border-bottom: 1px solid #f2f2f2;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.2s ease;
+}
+
+.search-item:hover {
+    background-color: #f8f9fa;
+}
+
+.search-item img {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-left: 12px;
+}
+
+.search-item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-item-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.search-item-price {
+    font-size: 12px;
+    color: #28a745;
+    margin-top: 3px;
+}
+
+.no-result {
+    padding: 14px;
+    text-align: center;
+    color: #888;
+    font-size: 13px;
+}

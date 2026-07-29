@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <title>ورود به ElectroShop</title>
+</head>
+<body class="auth-page">
+
+    <div class="auth-container">
+        
+        <div class="auth-logo">
+            <a href="{% url 'home' %}">Electro<span>Shop</span></a>
+        </div>
+
+        <h2>ورود | ثبت‌نام</h2>
+        <p>سلام!<br>لطفاً نام کاربری و رمز عبور خود را وارد کنید.</p>
+        
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="ایمیل یا شماره موبایل / نام کاربری" required>
+            <input type="password" name="password" placeholder="رمز عبور" required>
+            
+            <button type="submit" class="btn-register-form">ورود به پنل</button>
+        </form>
+
+        <div class="auth-footer">
+            حساب کاربری ندارید؟ <a href="{% url 'signup' %}">ثبت‌نام کنید</a>
+        </div>
+
+        <div class="terms-text">
+            ورود شما به معنای پذیرش <a href="#">شرایط ElectroShop</a> و <a href="#">قوانین حریم‌خصوصی</a> است.
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <title>ثبت‌نام در ElectroShop</title>
+</head>
+<body class="auth-page">
+
+    <div class="auth-container">
+        
+        <div class="auth-logo">
+            <a href="{% url 'home' %}">Electro<span>Shop</span></a>
+        </div>
+
+        <h2>ایجاد حساب کاربری</h2>
+        <p>لطفاً اطلاعات خود را برای ثبت‌نام وارد کنید.</p>
+        
+        <form action="{% url 'signup' %}" method="POST">
+            {% csrf_token %}
+
+            
+            {% if form.errors %}
+                <div class="error-box">
+                    <strong>لطفاً خطاهای زیر را برطرف کنید:</strong>
+                    <ul>
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>{{ field }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+           
+            <div class="form-grid">
+                <input type="text" name="username" placeholder="نام کاربری" required>
+                <input type="text" name="phone_number" placeholder="شماره تماس" required>
+                
+                <input type="text" name="first_name" placeholder="نام" required>
+                <input type="text" name="last_name" placeholder="نام خانوادگی" required>
+                
+                <input type="email" name="email" placeholder="پست الکترونیک (ایمیل)" class="full-width" required>
+                
+                <input type="password" name="password1" placeholder="رمز عبور" required>
+                <input type="password" name="password2" placeholder="تکرار رمز عبور" required>
+            </div>
+            
+            <button type="submit" class="btn-register-form">ایجاد حساب ElectroShop</button>
+        </form>
+        
+        <div class="auth-footer">
+            قبلاً ثبت‌نام کرده‌اید؟ <a href="{% url 'login' %}">وارد شوید</a>
+        </div>
+
+        <div class="terms-text">
+            ثبت‌نام شما به معنای پذیرش <a href="#">شرایط ElectroShop</a> و <a href="#">قوانین حریم‌خصوصی</a> است.
+        </div>
+    </div>
+
+</body>
+</html>
